@@ -56,6 +56,36 @@ public class EmployeeDatabase {
         /*
          * Implement this function
          */
+        int count = 0;
+        if (findManager(employee) == null) {
+            return count;
+        } else {
+            return 1 + countManagersAbove(findManager(employee));
+        }
+    }
+
+    /**
+     * Returns the manager for the given employee.
+     *
+     * @param employee
+     * @return
+     */
+    Employee[] findEmployee(final Employee employee) {
+        int count = 0;
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getManager() == employee.getName()) {
+                count++;
+            }
+        }
+        Employee[] result = new Employee[count];
+        int j = 0;
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getManager() == employee.getName()) {
+                result[j] = employees.get(i);
+                j++;
+            }
+        }
+        return result;
     }
 
     /**
@@ -70,6 +100,15 @@ public class EmployeeDatabase {
         /*
          * Implement this function
          */
+        int count = 0;
+        if (findEmployee(employee).length == 0) {
+            return count;
+        } else {
+            for (int i = 0; i < findEmployee(employee).length; i++) {
+                count += countEmployeesUnder(findEmployee(employee)[i]);
+            }
+            return findEmployee(employee).length + count;
+        }
     }
 
     /**
